@@ -1,0 +1,66 @@
+.qr-container {
+    background: rgba(31, 31, 31, 0.8);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.1) inset;
+}
+
+.qr-container h3 {
+    margin-bottom: 1rem;
+    color: #f3f4f6;
+}
+
+.qrcode {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.qrcode canvas {
+    filter: invert(1);
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.url-display {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 10px;
+    font-family: monospace;
+    font-size: 14px;
+    word-break: break-all;
+    margin-top: 1rem;
+    color: #a78bfa;
+}
+
+.copy-button {
+    margin-top: 1rem;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    font-size: 0.9rem;
+    padding: 0.7rem 1.5rem;
+}
+
+.game-code-container {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 10px;
+}
+
+.game-code-label {
+    font-size: 0.9rem;
+    color: #a78bfa;
+    margin-bottom: 0.5rem;
+}
+
+.game-code {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #e5e7eb;
+    letter-spacing: 3px;
+}

@@ -1,0 +1,16 @@
+.players-section {
+    margin: 2rem 0;
+}
+
+.players-section h3 {
+    color: #f3f4f6;
+    margin-bottom: 1rem;
+}
+
+.secondary-button {
+    background: linear-gradient(135deg, #6b7280, #4b5563);
+}
+
+.debug-button {
+    background: linear-gradient(135deg, #9333ea, #7c3aed);
+}
