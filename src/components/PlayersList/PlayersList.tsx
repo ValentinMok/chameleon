@@ -1,7 +1,13 @@
 import React from 'react';
 import './PlayersList.css';
+import { Player } from '../../types';
 
-function PlayersList({ players, currentPlayer }) {
+interface PlayersListProps {
+    players: Player[];
+    currentPlayer: string;
+}
+
+const PlayersList: React.FC<PlayersListProps> = ({ players, currentPlayer }) => {
     return (
         <div className="players-list">
             {players.map((player, index) => {

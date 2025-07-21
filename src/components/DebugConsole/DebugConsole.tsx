@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './DebugConsole.css';
 import debugLogger from '../../services/debugLogger';
+import { DebugLog } from '../../types';
 
-function DebugConsole() {
-    const [isVisible, setIsVisible] = useState(false);
-    const [logs, setLogs] = useState([]);
-    const outputRef = useRef(null);
+const DebugConsole: React.FC = () => {
+    const [isVisible, setIsVisible] = useState<boolean>(false);
+    const [logs, setLogs] = useState<DebugLog[]>([]);
+    const outputRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         // Subscribe to debug logger
-        const unsubscribe = debugLogger.subscribe((newLog) => {
+        const unsubscribe = debugLogger.subscribe((newLog: DebugLog | null) => {
             if (newLog === null) {
                 // Clear logs
                 setLogs([]);

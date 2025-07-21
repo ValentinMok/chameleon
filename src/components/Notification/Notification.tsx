@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Notification.css';
 import { useGame } from '../../contexts/GameContext';
 
-function Notification() {
+const Notification: React.FC = () => {
     const { notification } = useGame();
     const [visible, setVisible] = useState(false);
 

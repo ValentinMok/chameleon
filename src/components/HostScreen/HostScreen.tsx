@@ -5,7 +5,7 @@ import QRCode from '../QRCode/QRCode';
 import PlayersList from '../PlayersList/PlayersList';
 import debugLogger from '../../services/debugLogger';
 
-function HostScreen() {
+const HostScreen: React.FC = () => {
     const { gameState, startGame } = useGame();
     const { players, gameId } = gameState;
 
@@ -14,7 +14,7 @@ function HostScreen() {
         ? `Start Game (${players.length} players)` 
         : `Start Game (Need ${3 - players.length} more players)`;
 
-    const addTestPlayers = () => {
+    const addTestPlayers = (): void => {
         debugLogger.info('Test players feature would be implemented here');
         // In a real implementation, this would add test players for development
     };
@@ -35,7 +35,7 @@ function HostScreen() {
             
             <div className="players-section">
                 <h3>Players ({players.length})</h3>
-                <PlayersList players={players} />
+                <PlayersList players={players} currentPlayer={gameState.playerName} />
             </div>
             
             <button 

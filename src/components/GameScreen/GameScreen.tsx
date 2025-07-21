@@ -3,7 +3,7 @@ import './GameScreen.css';
 import { useGame } from '../../contexts/GameContext';
 import { chameleonTopics } from '../../data/chameleonTopics';
 
-function GameScreen() {
+const GameScreen: React.FC = () => {
     const { gameState, startNewRound, endGame } = useGame();
     const { 
         isHost, 

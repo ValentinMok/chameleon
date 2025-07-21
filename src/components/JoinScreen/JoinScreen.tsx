@@ -3,21 +3,21 @@ import './JoinScreen.css';
 import { useGame } from '../../contexts/GameContext';
 import { getGameIdFromUrl } from '../../utils/gameUtils';
 
-function JoinScreen() {
-    const [playerName, setPlayerName] = useState('');
+const JoinScreen: React.FC = () => {
+    const [playerName, setPlayerName] = useState<string>('');
     const { joinGame } = useGame();
 
     useEffect(() => {
         // Focus on name input when component mounts
         const timer = setTimeout(() => {
-            const input = document.getElementById('playerName');
+            const input = document.getElementById('playerName') as HTMLInputElement;
             if (input) input.focus();
         }, 100);
         
         return () => clearTimeout(timer);
     }, []);
 
-    const handleJoin = async () => {
+    const handleJoin = async (): Promise<void> => {
         const name = playerName.trim();
         
         if (!name) {
@@ -31,7 +31,7 @@ function JoinScreen() {
         }
     };
 
-    const handleKeyPress = (e) => {
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>): void => {
         if (e.key === 'Enter') {
             handleJoin();
         }

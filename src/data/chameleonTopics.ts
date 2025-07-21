@@ -1,4 +1,6 @@
-export const chameleonTopics = {
+import { ChameleonTopics } from '../types';
+
+export const chameleonTopics: ChameleonTopics = {
     "Animals": ["elephant", "penguin", "butterfly", "octopus", "kangaroo", "flamingo", "hedgehog", "platypus", "giraffe", "dolphin", "tiger", "koala", "peacock", "sloth", "chameleon", "panda"],
     "Food": ["pizza", "sushi", "chocolate", "avocado", "pancakes", "tacos", "ice cream", "spaghetti", "burger", "salad", "pasta", "sandwich", "curry", "soup", "steak", "cake"],
     "Movies": ["superhero", "comedy", "thriller", "animation", "documentary", "musical", "horror", "romance", "action", "drama", "fantasy", "sci-fi", "western", "mystery", "adventure", "biography"],

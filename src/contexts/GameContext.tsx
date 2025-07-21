@@ -1,12 +1,13 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 import gameStorage from '../services/gameStorage';
 import debugLogger from '../services/debugLogger';
 import { generateGameId, selectRandomChameleon, selectRandomTopicAndWord } from '../utils/gameUtils';
 import { chameleonTopics } from '../data/chameleonTopics';
+import { GameState, Notification, GameContextType, GameData } from '../types';
 
-const GameContext = createContext();
+const GameContext = createContext<GameContextType | undefined>(undefined);
 
-export const useGame = () => {
+export const useGame = (): GameContextType => {
     const context = useContext(GameContext);
     if (!context) {
         throw new Error('useGame must be used within a GameProvider');
@@ -14,8 +15,12 @@ export const useGame = () => {
     return context;
 };
 
-export const GameProvider = ({ children }) => {
-    const [gameState, setGameState] = useState({
+interface GameProviderProps {
+    children: ReactNode;
+}
+
+export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
+    const [gameState, setGameState] = useState<GameState>({
         isHost: false,
         playerName: '',
         chameleonIndex: -1,
@@ -27,10 +32,10 @@ export const GameProvider = ({ children }) => {
         screen: 'host' // host, join, waiting, game
     });
 
-    const [notification, setNotification] = useState(null);
-    const [unsubscribe, setUnsubscribe] = useState(null);
+    const [notification, setNotification] = useState<Notification | null>(null);
+    const [unsubscribe, setUnsubscribe] = useState<(() => void) | null>(null);
 
-    const showNotification = useCallback((message, type = 'info') => {
+    const showNotification = useCallback((message: string, type: 'info' | 'success' | 'error' = 'info') => {
         setNotification({ message, type });
         setTimeout(() => setNotification(null), 3000);
     }, []);
@@ -51,7 +56,7 @@ export const GameProvider = ({ children }) => {
             await gameStorage.createGame(gameId, 'Host');
             
             // Start listening for players
-            const unsub = gameStorage.listenToGame(gameId, (game) => {
+            const unsub = gameStorage.listenToGame(gameId, (game: GameData | null) => {
                 if (game) {
                     setGameState(prev => ({
                         ...prev,
@@ -66,11 +71,12 @@ export const GameProvider = ({ children }) => {
             
             setUnsubscribe(() => unsub);
         } catch (error) {
-            showNotification('Error creating game: ' + error.message, 'error');
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            showNotification('Error creating game: ' + errorMessage, 'error');
         }
     }, [showNotification]);
 
-    const joinGame = useCallback(async (gameId, playerName) => {
+    const joinGame = useCallback(async (gameId: string, playerName: string) => {
         try {
             const joined = await gameStorage.addPlayer(gameId, playerName);
             
@@ -83,7 +89,7 @@ export const GameProvider = ({ children }) => {
                 }));
                 
                 // Start listening for game updates
-                const unsub = gameStorage.listenToGame(gameId, (game) => {
+                const unsub = gameStorage.listenToGame(gameId, (game: GameData | null) => {
                     if (!game) {
                         showNotification('Game no longer exists', 'error');
                         setTimeout(() => window.location.reload(), 2000);
@@ -109,10 +115,11 @@ export const GameProvider = ({ children }) => {
                 return false;
             }
         } catch (error) {
-            if (error.message === 'Game not found') {
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            if (errorMessage === 'Game not found') {
                 showNotification('Game not found. Check the game code.', 'error');
             } else {
-                showNotification('Error joining game: ' + error.message, 'error');
+                showNotification('Error joining game: ' + errorMessage, 'error');
             }
             return false;
         }
@@ -143,7 +150,8 @@ export const GameProvider = ({ children }) => {
             
             debugLogger.success('Game started successfully');
         } catch (error) {
-            showNotification('Error starting game: ' + error.message, 'error');
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            showNotification('Error starting game: ' + errorMessage, 'error');
         }
     }, [gameState.players.length, gameState.gameId, showNotification]);
 
@@ -162,7 +170,8 @@ export const GameProvider = ({ children }) => {
             
             showNotification('New round started!', 'info');
         } catch (error) {
-            showNotification('Error starting new round: ' + error.message, 'error');
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            showNotification('Error starting new round: ' + errorMessage, 'error');
         }
     }, [gameState.isHost, gameState.players.length, gameState.gameId, showNotification]);
 
@@ -189,7 +198,8 @@ export const GameProvider = ({ children }) => {
                     screen: 'host'
                 }));
             } catch (error) {
-                debugLogger.error('Error ending game: ' + error.message);
+                const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+                debugLogger.error('Error ending game: ' + errorMessage);
             }
         } else {
             // For players, just go back to waiting room
@@ -210,7 +220,8 @@ export const GameProvider = ({ children }) => {
             try {
                 await gameStorage.removePlayer(gameState.gameId, gameState.playerName);
             } catch (error) {
-                debugLogger.error('Error leaving game: ' + error.message);
+                const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+                debugLogger.error('Error leaving game: ' + errorMessage);
             }
         }
         

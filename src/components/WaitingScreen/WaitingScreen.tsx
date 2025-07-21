@@ -3,7 +3,7 @@ import './WaitingScreen.css';
 import { useGame } from '../../contexts/GameContext';
 import PlayersList from '../PlayersList/PlayersList';
 
-function WaitingScreen() {
+const WaitingScreen: React.FC = () => {
     const { gameState, leaveGame } = useGame();
     const { players, gameId } = gameState;
 

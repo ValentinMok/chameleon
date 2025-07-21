@@ -3,8 +3,12 @@ import QRious from 'qrious';
 import './QRCode.css';
 import { createGameUrl } from '../../utils/gameUtils';
 
-function QRCode({ gameId }) {
-    const canvasRef = useRef(null);
+interface QRCodeProps {
+    gameId: string;
+}
+
+const QRCode: React.FC<QRCodeProps> = ({ gameId }) => {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
     const gameUrl = createGameUrl(gameId);
 
     useEffect(() => {
@@ -22,7 +26,7 @@ function QRCode({ gameId }) {
     const copyLink = () => {
         navigator.clipboard.writeText(gameUrl).then(() => {
             // Could trigger a notification here
-            const button = document.querySelector('.copy-button');
+            const button = document.querySelector('.copy-button') as HTMLElement;
             if (button) {
                 button.textContent = '✅ Copied!';
                 setTimeout(() => {

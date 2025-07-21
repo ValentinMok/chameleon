@@ -10,7 +10,7 @@ import Notification from './components/Notification/Notification';
 import { getGameIdFromUrl } from './utils/gameUtils';
 import debugLogger from './services/debugLogger';
 
-function AppContent() {
+const AppContent: React.FC = () => {
     const { gameState, setupHost } = useGame();
 
     useEffect(() => {
@@ -59,7 +59,7 @@ function AppContent() {
     );
 }
 
-function App() {
+const App: React.FC = () => {
     return (
         <GameProvider>
             <AppContent />

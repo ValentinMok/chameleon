@@ -1,11 +1,16 @@
+import { DebugLog } from '../types';
+
 class DebugLogger {
+    private logs: DebugLog[];
+    private listeners: ((log: DebugLog | null) => void)[];
+
     constructor() {
         this.logs = [];
         this.listeners = [];
     }
 
-    log(message, type = 'info') {
-        const log = {
+    log(message: string, type: 'info' | 'error' | 'success' = 'info'): void {
+        const log: DebugLog = {
             message,
             type,
             timestamp: new Date().toLocaleTimeString()
@@ -20,24 +25,24 @@ class DebugLogger {
         this.listeners.forEach(listener => listener(log));
     }
 
-    error(message) {
+    error(message: string): void {
         this.log(message, 'error');
     }
 
-    success(message) {
+    success(message: string): void {
         this.log(message, 'success');
     }
 
-    info(message) {
+    info(message: string): void {
         this.log(message, 'info');
     }
 
-    clear() {
+    clear(): void {
         this.logs = [];
         this.listeners.forEach(listener => listener(null));
     }
 
-    subscribe(callback) {
+    subscribe(callback: (log: DebugLog | null) => void): () => void {
         this.listeners.push(callback);
         // Return unsubscribe function
         return () => {
@@ -45,7 +50,7 @@ class DebugLogger {
         };
     }
 
-    getLogs() {
+    getLogs(): DebugLog[] {
         return this.logs;
     }
 }
