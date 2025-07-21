@@ -12,7 +12,8 @@ body {
         radial-gradient(ellipse at bottom right, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
     min-height: 100vh;
     color: #e5e7eb;
-    padding: 2rem 0;
+    padding-top: 60px;
+    padding-bottom: 2rem;
 }
 
 .app {
@@ -170,7 +171,8 @@ p {
 
 @media (max-width: 480px) {
     body {
-        padding: 1rem 0;
+        padding-top: 50px;
+        padding-bottom: 1rem;
     }
     
     .app {

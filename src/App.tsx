@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import { GameProvider, useGame } from './contexts/GameContext';
+import { LanguageProvider } from './contexts/LanguageContext';
 import HostScreen from './components/HostScreen/HostScreen';
 import JoinScreen from './components/JoinScreen/JoinScreen';
 import WaitingScreen from './components/WaitingScreen/WaitingScreen';
 import GameScreen from './components/GameScreen/GameScreen';
 import DebugConsole from './components/DebugConsole/DebugConsole';
 import Notification from './components/Notification/Notification';
+import TopBar from './components/TopBar/TopBar';
 import { getGameIdFromUrl } from './utils/gameUtils';
 import debugLogger from './services/debugLogger';
 
@@ -47,6 +49,7 @@ const AppContent: React.FC = () => {
 
     return (
         <div className="app">
+            <TopBar />
             <div className="container">
                 {renderScreen()}
             </div>
@@ -61,9 +64,11 @@ const AppContent: React.FC = () => {
 
 const App: React.FC = () => {
     return (
-        <GameProvider>
-            <AppContent />
-        </GameProvider>
+        <LanguageProvider>
+            <GameProvider>
+                <AppContent />
+            </GameProvider>
+        </LanguageProvider>
     );
 }
 

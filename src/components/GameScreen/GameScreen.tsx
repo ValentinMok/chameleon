@@ -1,10 +1,12 @@
 import React from 'react';
 import './GameScreen.css';
 import { useGame } from '../../contexts/GameContext';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { chameleonTopics } from '../../data/chameleonTopics';
 
 const GameScreen: React.FC = () => {
-    const { gameState, startNewRound, endGame } = useGame();
+    const { gameState, startNewRound } = useGame();
+    const { t } = useLanguage();
     const { 
         isHost, 
         playerName, 
@@ -20,18 +22,18 @@ const GameScreen: React.FC = () => {
 
     return (
         <>
-            <h1>🦎 The Chameleon</h1>
+            <h1>🦎 {t('game.title')}</h1>
             
             <div className="game-info">
                 <div className={`role-display ${isPlayerChameleon ? 'chameleon' : 'regular'}`}>
                     {isPlayerChameleon 
-                        ? 'You are the CHAMELEON! 🦎' 
-                        : 'You are a REGULAR PLAYER 🕵️'}
+                        ? t('game.chameleon')
+                        : t('game.regularPlayer')}
                 </div>
                 
                 {!isPlayerChameleon ? (
                     <div id="wordSection">
-                        <div className="topic-header">Topic: <span>{currentTopic}</span></div>
+                        <div className="topic-header">{t('game.topic')} <span>{currentTopic}</span></div>
                         <div className="word-grid">
                             {chameleonTopics[currentTopic]?.map((word, index) => (
                                 <div 
@@ -46,7 +48,7 @@ const GameScreen: React.FC = () => {
                 ) : (
                     <div id="topicSection">
                         <div className="chameleon-topic-only">
-                            <div className="topic-label">Topic:</div>
+                            <div className="topic-label">{t('game.topicOnly')}</div>
                             <div className="topic-value">{currentTopic}</div>
                         </div>
                     </div>
@@ -55,13 +57,9 @@ const GameScreen: React.FC = () => {
             
             {isHost && (
                 <button onClick={startNewRound} className="host-only">
-                    Start New Round
+                    {t('game.startNewRound')}
                 </button>
             )}
-            
-            <button onClick={endGame} className="end-game-button">
-                Leave Game
-            </button>
         </>
     );
 }

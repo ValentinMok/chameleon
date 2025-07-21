@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import QRious from 'qrious';
 import './QRCode.css';
 import { createGameUrl } from '../../utils/gameUtils';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 interface QRCodeProps {
     gameId: string;
@@ -9,6 +10,7 @@ interface QRCodeProps {
 
 const QRCode: React.FC<QRCodeProps> = ({ gameId }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const { t } = useLanguage();
     const gameUrl = createGameUrl(gameId);
 
     useEffect(() => {
@@ -28,9 +30,9 @@ const QRCode: React.FC<QRCodeProps> = ({ gameId }) => {
             // Could trigger a notification here
             const button = document.querySelector('.copy-button') as HTMLElement;
             if (button) {
-                button.textContent = '✅ Copied!';
+                button.textContent = t('host.copied');
                 setTimeout(() => {
-                    button.textContent = '📋 Copy Link';
+                    button.textContent = t('host.copyLink');
                 }, 2000);
             }
         }).catch(() => {
@@ -46,19 +48,19 @@ const QRCode: React.FC<QRCodeProps> = ({ gameId }) => {
 
     return (
         <div className="qr-container">
-            <h3>Scan to Join Game</h3>
+            <h3>{t('host.scanToJoin')}</h3>
             <div className="qrcode">
                 <canvas ref={canvasRef}></canvas>
             </div>
             <div className="url-display">{gameUrl}</div>
             
             <button onClick={copyLink} className="copy-button">
-                📋 Copy Link
+                {t('host.copyLink')}
             </button>
             
             {gameId && (
                 <div className="game-code-container">
-                    <div className="game-code-label">Game Code</div>
+                    <div className="game-code-label">{t('host.gameCode')}</div>
                     <div className="game-code">{gameId}</div>
                 </div>
             )}

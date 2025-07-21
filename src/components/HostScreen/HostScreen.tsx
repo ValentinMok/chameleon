@@ -1,17 +1,19 @@
 import React from 'react';
 import './HostScreen.css';
 import { useGame } from '../../contexts/GameContext';
+import { useLanguage } from '../../contexts/LanguageContext';
 import QRCode from '../QRCode/QRCode';
 import PlayersList from '../PlayersList/PlayersList';
 
 const HostScreen: React.FC = () => {
     const { gameState, startGame } = useGame();
+    const { t } = useLanguage();
     const { players, gameId } = gameState;
 
     const canStartGame = players.length >= 3;
     const startButtonText = canStartGame 
-        ? `Start Game (${players.length} players)` 
-        : `Start Game (Need ${3 - players.length} more players)`;
+        ? t('host.startGamePlayers').replace('{count}', players.length.toString())
+        : t('host.needMorePlayers').replace('{count}', (3 - players.length).toString());
 
     const toggleDebugConsole = () => {
         const event = new CustomEvent('toggleDebugConsole');
@@ -20,15 +22,15 @@ const HostScreen: React.FC = () => {
 
     return (
         <>
-            <h1>🦎 The Chameleon</h1>
+            <h1>🦎 {t('game.title')}</h1>
             <p style={{ marginBottom: '2rem' }}>
-                Set up the game on your phone, then others can join by scanning the QR code!
+                {t('host.setupMessage')}
             </p>
             
             <QRCode gameId={gameId} />
             
             <div className="players-section">
-                <h3>Players ({players.length})</h3>
+                <h3>{t('host.players')} ({players.length})</h3>
                 <PlayersList players={players} currentPlayer={gameState.playerName} />
             </div>
             
@@ -43,7 +45,7 @@ const HostScreen: React.FC = () => {
                 onClick={toggleDebugConsole}
                 className="debug-button"
             >
-                🐛 Debug Console
+                {t('host.debugConsole')}
             </button>
         </>
     );
