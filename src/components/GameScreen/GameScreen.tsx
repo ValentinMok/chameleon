@@ -23,6 +23,16 @@ const GameScreen: React.FC = () => {
     // Get the current language's translated topics
     const currentLanguageTopics = translatedTopics[t('game.title') === 'Chamäleon' ? 'de' : 'en'];
     
+    // Add safety check
+    if (!currentLanguageTopics || !currentTopic) {
+        return (
+            <>
+                <h1>🦎 {t('game.title')}</h1>
+                <p>Loading game...</p>
+            </>
+        );
+    }
+    
     // Map English topic name (stored in game state) to translated display name
     const topicMapping = {
         "Animals": t('game.title') === 'Chamäleon' ? "Tiere" : "Animals",
