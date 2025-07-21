@@ -33,12 +33,20 @@
 }
 
 .topic-header {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     font-weight: 600;
     color: #a78bfa;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+.topic-header span {
+    color: #e5e7eb;
+    font-weight: 700;
+    font-size: 1.6rem;
+    text-transform: capitalize;
+    margin-left: 0.5rem;
 }
 
 .word-grid {
@@ -124,22 +132,47 @@
     hyphens: auto;
 }
 
-.chameleon-info {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(236, 72, 153, 0.1));
-    border-radius: 20px;
-    padding: 1.5rem;
-    margin: 1rem 0;
-    border: 2px solid rgba(239, 68, 68, 0.3);
+.chameleon-topic-only {
     text-align: center;
-    backdrop-filter: blur(5px);
+    margin: 2rem 0;
+    padding: 1rem 0;
 }
 
-.chameleon-instructions {
-    font-size: 1.1rem;
+.topic-label {
+    font-size: 1.8rem;
+    font-weight: 600;
     color: #fca5a5;
-    margin-top: 1rem;
-    font-weight: bold;
-    text-shadow: 0 0 5px rgba(239, 68, 68, 0.3);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+}
+
+.topic-value {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 
+        0 0 20px rgba(239, 68, 68, 0.8),
+        0 4px 8px rgba(0, 0, 0, 0.5);
+    margin-bottom: 1rem;
+    animation: chameleonGlow 3s ease-in-out infinite;
+}
+
+@keyframes chameleonGlow {
+    0%, 100% { 
+        text-shadow: 
+            0 0 20px rgba(239, 68, 68, 0.8),
+            0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+    50% { 
+        text-shadow: 
+            0 0 30px rgba(239, 68, 68, 1),
+            0 0 40px rgba(236, 72, 153, 0.6),
+            0 4px 8px rgba(0, 0, 0, 0.5);
+    }
 }
 
 .end-game-button {
@@ -161,5 +194,23 @@
     .topic-display {
         font-size: 1.5rem;
         padding: 1rem;
+    }
+    
+    .topic-header {
+        font-size: 1.2rem;
+    }
+    
+    .topic-header span {
+        font-size: 1.4rem;
+    }
+    
+    .topic-value {
+        font-size: 2rem;
+        letter-spacing: 2px;
+    }
+    
+    .topic-label {
+        font-size: 1.4rem;
+        letter-spacing: 1px;
     }
 }

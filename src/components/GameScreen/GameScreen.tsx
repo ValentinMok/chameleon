@@ -45,12 +45,9 @@ const GameScreen: React.FC = () => {
                     </div>
                 ) : (
                     <div id="topicSection">
-                        <div className="chameleon-info">
-                            <div className="topic-header">Topic</div>
-                            <div className="topic-display">{currentTopic}</div>
-                            <div className="chameleon-instructions">
-                                Listen carefully and blend in without knowing the secret word
-                            </div>
+                        <div className="chameleon-topic-only">
+                            <div className="topic-label">Topic:</div>
+                            <div className="topic-value">{currentTopic}</div>
                         </div>
                     </div>
                 )}
