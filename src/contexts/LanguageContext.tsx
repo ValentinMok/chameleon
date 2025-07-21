@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { getTranslatedTopics } from '../data/translatedTopics';
+import { ChameleonTopics } from '../types';
 
 export type Language = 'en' | 'de';
 
@@ -6,6 +8,7 @@ interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   t: (key: string) => string;
+  getTopics: () => ChameleonTopics;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -21,7 +24,7 @@ export const useLanguage = (): LanguageContextType => {
 const translations = {
   en: {
     // Game titles
-    'game.title': 'The Chameleon',
+    'game.title': 'Chameleon',
     'game.waitingRoom': 'Waiting Room',
     
     // Host screen
@@ -67,7 +70,7 @@ const translations = {
   },
   de: {
     // Game titles
-    'game.title': 'Das Chamäleon',
+    'game.title': 'Chamäleon',
     'game.waitingRoom': 'Warteraum',
     
     // Host screen
@@ -130,10 +133,15 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     return translation;
   };
 
+  const getTopics = (): ChameleonTopics => {
+    return getTranslatedTopics(language);
+  };
+
   const value = {
     language,
     setLanguage,
-    t
+    t,
+    getTopics
   };
 
   return (
