@@ -29,7 +29,7 @@ export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
         gameId: '',
         gameStarted: false,
         players: [],
-        screen: 'host' // host, join, waiting, game
+        screen: 'join' // host, join, waiting, game - default to join, setupHost will change to host
     });
 
     const [notification, setNotification] = useState<Notification | null>(null);

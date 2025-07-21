@@ -21,8 +21,8 @@ const AppContent: React.FC = () => {
         
         if (gameId) {
             debugLogger.log(`Join URL detected with game ID: ${gameId}`);
-            // Game ID in URL means this is a player joining
-            // The join screen will be shown by default
+            // Game ID in URL means this is a player joining - screen should be 'join'
+            // This is handled by the initial state being 'join' by default when not host
         } else {
             debugLogger.log('No game ID in URL - setting up as host');
             // No game ID means this is the host
