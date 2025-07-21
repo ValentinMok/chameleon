@@ -2,11 +2,11 @@ import React from 'react';
 import './GameScreen.css';
 import { useGame } from '../../contexts/GameContext';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { translatedTopics } from '../../data/translatedTopics';
 
 const GameScreen: React.FC = () => {
     const { gameState, startNewRound } = useGame();
     const { t, getTopics } = useLanguage();
-    const translatedTopics = getTopics();
     const { 
         isHost, 
         playerName, 
@@ -20,8 +20,8 @@ const GameScreen: React.FC = () => {
     const playerIndex = players.findIndex(p => p.name === playerName);
     const isPlayerChameleon = playerIndex === chameleonIndex;
     
-    // Get the current language's translated topics
-    const currentLanguageTopics = translatedTopics[t('game.title') === 'Chamäleon' ? 'de' : 'en'];
+    // Get the current language's translated topics - this already returns the correct language
+    const currentLanguageTopics = getTopics();
     
     // Add safety check
     if (!currentLanguageTopics || !currentTopic) {
