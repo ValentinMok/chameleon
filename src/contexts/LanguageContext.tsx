@@ -28,7 +28,6 @@ const translations = {
     'game.waitingRoom': 'Waiting Room',
     
     // Host screen
-    'host.setupMessage': 'Set up the game on your phone, then others can join by scanning the QR code!',
     'host.players': 'Players',
     'host.startGame': 'Start Game',
     'host.startGamePlayers': 'Start Game ({count} players)',
@@ -74,7 +73,6 @@ const translations = {
     'game.waitingRoom': 'Warteraum',
     
     // Host screen
-    'host.setupMessage': 'Richte das Spiel auf deinem Handy ein, dann können andere durch Scannen des QR-Codes beitreten!',
     'host.players': 'Spieler',
     'host.startGame': 'Spiel starten',
     'host.startGamePlayers': 'Spiel starten ({count} Spieler)',
