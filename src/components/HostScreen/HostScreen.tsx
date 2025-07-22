@@ -23,9 +23,6 @@ const HostScreen: React.FC = () => {
     return (
         <>
             <h1>🦎 {t('game.title')}</h1>
-            <p style={{ marginBottom: '2rem' }}>
-                {t('host.setupMessage')}
-            </p>
             
             <QRCode gameId={gameId} />
             
